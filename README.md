@@ -6,7 +6,7 @@ This collection provides examples of working with the NIOS APIs.
 
 The collections require the two environment variables to be configured::
 
-  - base_url: https://<gm>/wapi/<version>
+  - base_url: https://\<gm\>/wapi/\<version\>
   - auth_user:  username
   - auth_pw: password
 
