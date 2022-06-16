@@ -1,6 +1,9 @@
 # nios_postman
 ## Infoblox NIOS API Examples
 
+| Version: 0.1.1
+| Author: Chris Marrison
+| Email: chris@infoblox.com
 
 This collection provides examples of working with the NIOS APIs.
 
