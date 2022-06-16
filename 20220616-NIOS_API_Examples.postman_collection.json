@@ -1,0 +1,4026 @@
+{
+	"info": {
+		"_postman_id": "d4f24288-e0d2-49c7-bef6-0829942afd13",
+		"name": "NIOS API Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1083818"
+	},
+	"item": [
+		{
+			"name": "IPAM/DHCP",
+			"item": [
+				{
+					"name": "Network View",
+					"item": [
+						{
+							"name": "Create Network View",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/networkview?name=PoC_Test",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkview"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "PoC_Test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Network Views",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/networkview",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkview"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Network View",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"infoblox-poc2\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/networkview/<_ref>",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkview",
+										"<_ref>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Network View",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/networkview/<_ref>",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkview",
+										"<_ref>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Network View by name (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"netview_name\": \"PoC_Test\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"networkview\",\n    \"data\": {\n            \"name\": \"##STATE:netview_name:##\"\n    },\n    \"assign_state\": {\n                    \"nv_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:nv_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv4 Network Container",
+					"item": [
+						{
+							"name": "Create Network Container",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"network\": \"10.0.0.0/8\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/networkcontainer",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkcontainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Network Containers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/networkcontainer?_return_fields=extattrs,network_view",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkcontainer"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs,network_view"
+										},
+										{
+											"key": "_schema",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Network Container",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"extattrs\": {\n        \"Building\": {\n            \"value\": \"Paris\"\n        },\n        \"Country\": {\n            \"value\": \"France\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/networkcontainer/<ref>?_return_fields=extattrs",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"networkcontainer",
+										"<ref>"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Network Container",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"netcontainer\": \"10.0.0.0/8\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"networkcontainer\",\n    \"data\": {\n            \"network\": \"##STATE:netcontainer:##\"\n    },\n    \"assign_state\": {\n                    \"nc_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:nc_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv4 Network",
+					"item": [
+						{
+							"name": "Create Network",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"network\": \"10.0.0.0/24\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create next available network",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"network\": \"func:nextavailablenetwork:10.0.0.0/8,default,26\",\n\t\"comment\": \"Next Abailable\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Network",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"extattrs\": {\n        \"Building\": {\n            \"value\": \"Lab\"\n        },\n        \"Country\": {\n            \"value\": \"UK\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/network/<ref>?_return_fields=extattrs",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network",
+										"<ref>"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Network with extattrs",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"network\": \"10.1.0.0/24\",\n\"extattrs\": {\n        \"Building\": {\n            \"value\": \"Lab\"\n        },\n        \"Country\": {\n            \"value\": \"France\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Networks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/network?_return_fields=extattrs,network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs,network"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All IPv4 Networks + extattr for specified view",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/network?network_view=default&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									],
+									"query": [
+										{
+											"key": "network_view",
+											"value": "default"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get specific IPv4 Network + options",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/network?network=10.1.1.0/24&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									],
+									"query": [
+										{
+											"key": "network",
+											"value": "10.1.1.0/24"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Network (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"net\": \"10.1.1.0/24\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"network\",\n    \"data\": {\n            \"network\": \"##STATE:net:##\"\n    },\n    \"assign_state\": {\n                    \"net_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:net_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv4 Range",
+					"item": [
+						{
+							"name": "Create Range",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"api-poc-range\",\n\t\"start_addr\": \"10.1.1.10\",\n    \"end_addr\": \"10.1.1.100\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/range",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"range"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Ranges",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/range",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"range"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Range (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"range_start\": \"10.1.1.10\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"range\",\n    \"data\": {\n            \"start_addr\": \"##STATE:range_start:##\"\n    },\n    \"assign_state\": {\n                    \"range_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:range_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Fixed Address",
+					"item": [
+						{
+							"name": "Create Fixed Address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"mac\": \"ffeedeadbeef\",\n    \"ipv4addr\": \"func:nextavailableip:10.1.0.0/24\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/fixedaddress",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Fixed Addresses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/fixedaddress?_max_results=100&_return_fields=ipv4addr,mac,network,network_view",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress"
+									],
+									"query": [
+										{
+											"key": "_max_results",
+											"value": "100"
+										},
+										{
+											"key": "_return_fields",
+											"value": "ipv4addr,mac,network,network_view"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific (mac) Fixed Addresses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/fixedaddress?mac=ffeedeabbeef",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress"
+									],
+									"query": [
+										{
+											"key": "mac",
+											"value": "ffeedeabbeef"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Fixed Address",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"mac\": \"ffffdeadbeef\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/fixedaddress/<ref>",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress",
+										"<ref>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific (mac) Fixed Addresses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/fixedaddress?mac=ffffdeabbeef",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress"
+									],
+									"query": [
+										{
+											"key": "mac",
+											"value": "ffffdeabbeef"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete FixedAddress (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"mac_addr\": \"10.1.0.10\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"fixedaddress\",\n    \"data\": {\n            \"start_addr\": \"##STATE:mac_addr:##\"\n    },\n    \"assign_state\": {\n                    \"fa_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:fa_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv6 Network Container",
+					"item": [
+						{
+							"name": "Create Network Container",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"network\": \"2001:DB8::/32\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}ipv6/networkcontainer",
+									"host": [
+										"{{base_url}}ipv6"
+									],
+									"path": [
+										"networkcontainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Network Containers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ipv6networkcontainer",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6networkcontainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Network Container",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"extattrs\": {\n        \"Building\": {\n            \"value\": \"Paris\"\n        },\n        \"Country\": {\n            \"value\": \"France\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/ipv6networkcontainer/<ref>?_return_fields=extattrs",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6networkcontainer",
+										"<ref>"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Network Container",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"ipv6netcontainer\": \"2001:DB8::/32\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"ipv6networkcontainer\",\n    \"data\": {\n            \"network\": \"##STATE:ipv6netcontainer:##\"\n    },\n    \"assign_state\": {\n                    \"nc_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:nc_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv6 Network",
+					"item": [
+						{
+							"name": "Create Network",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"network\": \"2001:DB8::/64\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/ipv6network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6network"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create next available network",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"network\": \"func:nextavailablenetwork:2001:DB8::/32,default,64\",\n\t\"comment\": \"Next Available\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all IPv6 Networks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ipv6network?_return_fields=extattrs",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6network"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All IPv6 Networks + extattr for specified view",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/ipv6network?network_view=default&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6network"
+									],
+									"query": [
+										{
+											"key": "network_view",
+											"value": "default"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get specific IPv6 Network + options",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/ipv6network?network=2001:db8::/64&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6network"
+									],
+									"query": [
+										{
+											"key": "network",
+											"value": "2001:db8::/64"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update IPv6 Network",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"extattrs\": {\n        \"Building\": {\n            \"value\": \"Lab\"\n        },\n        \"Country\": {\n            \"value\": \"UK\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/ipv6network/<ref>?_return_fields=extattrs",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6network",
+										"<ref>"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "extattrs"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete IPv6 Network (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"net\": \"2001:db8::/64\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"ipv6network\",\n    \"data\": {\n            \"network\": \"##STATE:net:##\"\n    },\n    \"assign_state\": {\n                    \"net_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:net_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv6 Range",
+					"item": [
+						{
+							"name": "Create IPv6 Range",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address_type\": \"ADDRESS\",\n    \"name\": \"api-poc-range-ipv6\",\n\t\"start_addr\": \"2001:db8::d:0000\",\n    \"end_addr\": \"22001:db8::d:ffff\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/ipv6range",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6range"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All IPv6 Ranges",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ipv6range",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6range"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete IPv6 Range (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"range_start\": \"2001:db8::d:0000\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"ipv6range\",\n    \"data\": {\n            \"start_addr\": \"##STATE:range_start:##\"\n    },\n    \"assign_state\": {\n                    \"range_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:range_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "IPv6 Fixed Address",
+					"item": [
+						{
+							"name": "Create IPv6 Fixed Address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"duid\": \"000100011e59b279a45e60bcd531\",\n    \"ipv6addr\": \"2001:db8::d:0010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/fixedaddress",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All IPv6 Fixed Addresses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ipv6fixedaddress?_max_results=100&_return_fields=ipv4addr,duid,network,network_view",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6fixedaddress"
+									],
+									"query": [
+										{
+											"key": "_max_results",
+											"value": "100"
+										},
+										{
+											"key": "_return_fields",
+											"value": "ipv4addr,duid,network,network_view"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific IPv6 Fixed Addresses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ipv6fixedaddress?ipv6addr=2001:db8::d:0010",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6fixedaddress"
+									],
+									"query": [
+										{
+											"key": "ipv6addr",
+											"value": "2001:db8::d:0010"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify IPv6 Fixed Address",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ipv6addr\": \"2001:db8::d:0011\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/ipv6fixedaddress/<ref>",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6fixedaddress",
+										"<ref>"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific IPv6 Fixed Addresses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/fixedaddress?ipv6addr=2001:db8::d:0011",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fixedaddress"
+									],
+									"query": [
+										{
+											"key": "ipv6addr",
+											"value": "2001:db8::d:0011"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete IPv6 FixedAddress (request)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"duif\": \"000100011e59b279a45e60bcd531\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"ipv6fixedaddress\",\n    \"data\": {\n            \"start_addr\": \"##STATE:duid:##\"\n    },\n    \"assign_state\": {\n                    \"fa_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:fa_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Extras",
+					"item": [
+						{
+							"name": "Request CSV Network Export",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"_object\": \"network\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/fileop?_function=csv_export",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"fileop"
+									],
+									"query": [
+										{
+											"key": "_function",
+											"value": "csv_export"
+										},
+										{
+											"key": "_object",
+											"value": "network",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IPv4 Network Search Extattr (Owner)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/network?network_view=default&*Owner:=lab@infoblox.com&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									],
+									"query": [
+										{
+											"key": "network_view",
+											"value": "default"
+										},
+										{
+											"key": "*Owner:",
+											"value": "lab@infoblox.com"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IPv6 Network Search Extattr (VLAN)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/ipv6network?network_view=default&*VLAN:=501&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ipv6network"
+									],
+									"query": [
+										{
+											"key": "network_view",
+											"value": "default"
+										},
+										{
+											"key": "*VLAN:",
+											"value": "501"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Split_Network",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"add_all_subnetworks\": true,\n    \"auto_create_reversezone\": false,\n    \"inherit_attributes\": true,\n    \"prefix\": 32\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/network/ZG5zLm5ldHdvcmskMTkyLjE2OC4yLjAvMjQvMA:192.168.2.0/24/default?_function=split_network",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network",
+										"ZG5zLm5ldHdvcmskMTkyLjE2OC4yLjAvMjQvMA:192.168.2.0",
+										"24",
+										"default"
+									],
+									"query": [
+										{
+											"key": "_function",
+											"value": "split_network"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Split_Network (Request Obj)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n{\n    \"method\": \"GET\",\n    \"object\": \"network\",\n    \"data\": {\n            \"network\": \"10.0.0.0/16\"\n    },\n    \"assign_state\": {\n    \t\"netw_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n},\n{\n    \"method\": \"POST\",\n\t\"object\": \"##STATE:netw_ref:##\",\n    \"enable_substitution\": true,\n    \"args\": {\n\t    \"_function\": \"split_network\"\n    },\n    \"data\": {\n        \"add_all_subnetworks\": false,\n        \"auto_create_reversezone\": false,\n        \"inherit_attributes\": false,\n        \"prefix\": 25\n    }\n}\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IPv4 Network Search Extattr (VLAN)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/network?network_view=default&*VLAN:=501&_return_fields=network,extattrs,cloud_info,options",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"network"
+									],
+									"query": [
+										{
+											"key": "network_view",
+											"value": "default"
+										},
+										{
+											"key": "*VLAN:",
+											"value": "501"
+										},
+										{
+											"key": "_return_fields",
+											"value": "network,extattrs,cloud_info,options"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Leases",
+					"item": [
+						{
+							"name": "Get lease objects",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/lease?_return_fields=address,binding_state,cltt,served_by",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lease"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "address,binding_state,cltt,served_by"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get DHCP Leases for network",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/lease?_return_fields=address,binding_state,hardware,cltt,ends,served_by,network,network_view&network=192.168.66.0/24",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"lease"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "address,binding_state,hardware,cltt,ends,served_by,network,network_view"
+										},
+										{
+											"key": "network",
+											"value": "192.168.66.0/24"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Hosts (IPAM - not in DNS)",
+					"item": [
+						{
+							"name": "Create Host",
+							"item": [
+								{
+									"name": "Add Host - Next Available IP4 + IPv6",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host1.infoblox.poc\",\n    \"configure_for_dns\": false,\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"10.0.0.0/24\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t},\n            \"mac\": \"aabb00ddeeff\"\n\t\t}\n\t],\n\t\"ipv6addrs\": [\n\t\t{\n\t\t\t\"ipv6addr\": \"func:nextavailableip:2001:db8::/64\"\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host?_return_fields=ipv4addrs,name",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "ipv4addrs,name"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next Available IP4 -extattr",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host3.infoblox.poc\",\n    \"configure_for_dns\": false,\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"*Building\": \"Lab\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t},\n            \"mac\": \"aabbccdd00ff\"\n\t\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host?_return_fields=ipv4addrs,name",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "ipv4addrs,name"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next Available IP4 -extattrs",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host2.infoblox.poc\",\n    \"configure_for_dns\": false,\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"*Building\": \"Lab\",\n                    \"*Country\": \"France\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t},\n            \"mac\": \"0000cc00ee00\"\n\t\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host?_return_fields=ipv4addrs,name",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "ipv4addrs,name"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Modify Host",
+							"item": [
+								{
+									"name": "Find specific host",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/record:host?name=host1.infoblox.poc&_max_results=1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "host1.infoblox.poc"
+												},
+												{
+													"key": "_max_results",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Retrieve Host Obj by Ref",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/record:host/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify IPv4 Address",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"ipv4addrs\": [ { \"ipv4addr\": \"2.2.2.2\" } ]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add MAC to Host IP4 address",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"mac\": \"cadedeadbeed\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host_ipv4addr/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host_ipv4addr",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add DUID to Host IP6 address",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"duid\": \"000100011e59b279a45e60bcd531\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host_ipv6addr/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host_ipv6addr",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete Host",
+							"item": [
+								{
+									"name": "Find specific host - get ref",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/record:host?name=host1.infoblox.poc&_max_results=1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "host1.infoblox.poc"
+												},
+												{
+													"key": "_max_results",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Host Obj by Ref",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Host by name (request)",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"host_name\": \"host1.infoblox.poc\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"record:host\",\n    \"data\": {\n            \"name\": \"##STATE:host_name:##\"\n    },\n    \"assign_state\": {\n                    \"host_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:host_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+										},
+										"url": {
+											"raw": "{{base_url}}/request",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"request"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Extras",
+							"item": [
+								{
+									"name": "Add Host - Next Available IP",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host2.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"10.0.0.0/24\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP4+IP6 Extattr Search",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host3.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n                    \t\"*VLAN\": \"501\"\n                },\n                \"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t],\n\t\"ipv6addrs\": [\n\t\t{\n\t\t\t\"ipv6addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"ipv6network\",\n\t\t\t\t\"_object_parameters\": {\n                    \t\"*VLAN\": \"501\"\n                },\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP Extattr Search",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host4.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"*Building\": \"Lab\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next Available IP (short)",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host5.infoblox.poc\",\n\t\"view\": \"default\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\":\"func:nextavailableip:10.0.1.0/24\",\n\t\t\t\"mac\":\"dafedeadbeef\"\n\t\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP+inherit",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"test1.poc.test\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"192.168.0.0/23\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t],\n\t\"extattrs\": {\n\t\t\"Site\": {\n\t\t\t\"inheritance_operation\": \"INHERIT\"\n\t\t}\n\t}\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP+inherit+Cloud",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"test10.poc.test\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"192.168.0.0/23\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t \t}\n\t\t}\n\t],\n\t\"extattrs\": {\n\t\t\t\t\"Tenant ID\":{\"value\":\"Tenant1\"},\n\t\t\t\t\"Cloud API Owned\": {\"value\":\"True\"},\n\t\t\t\t\"CMP Type\": {\"value\":\"Postman\"}\n\t\t\t\t\"Site\": {\"inheritance_operation\": \"INHERIT\"}\n\t}\n}\t\t"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get All Hosts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/record:host",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:host"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "name,ipv4addrs",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific Host",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/record:host?name=host1.infoblox.poc",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:host"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "host1.infoblox.poc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DNS",
+			"item": [
+				{
+					"name": "DNS View",
+					"item": [
+						{
+							"name": "Create DNS View",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{       \n    \"name\": \"infoblox-poc\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/view",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"view"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get DNS Views by ref",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/view",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"view"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete DNS View",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/view/ZG5zLnZpZXckLjI3NQ:marrison-poc/false",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"view",
+										"ZG5zLnZpZXckLjI3NQ:marrison-poc",
+										"false"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete DNS View by name (Request)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"name\": \"infoblox-poc\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"view\",\n    \"data\": {\n            \"name\": \"##STATE:name:##\"\n    },\n    \"assign_state\": {\n                    \"view_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:view_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/view/ZG5zLnZpZXckLjI3NQ:marrison-poc/false",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"view",
+										"ZG5zLnZpZXckLjI3NQ:marrison-poc",
+										"false"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Zone",
+					"item": [
+						{
+							"name": "Create Auth Zone",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fqdn\": \"infoblox.poc\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/zone_auth",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"zone_auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gel Zones",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/zone_auth?_max_results=100",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"zone_auth"
+									],
+									"query": [
+										{
+											"key": "_max_results",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Auth Zone by name",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/zone_auth?fqdn=infoblox.poc&_max_results=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"zone_auth"
+									],
+									"query": [
+										{
+											"key": "fqdn",
+											"value": "infoblox.poc"
+										},
+										{
+											"key": "_max_results",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Auth Zone (request)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"fqdn\": \"infoblox.poc\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"zone_auth\",\n    \"data\": {\n            \"fqdn\": \"##STATE:fqdn:##\"\n    },\n    \"assign_state\": {\n                    \"zone_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:zone_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Host Records",
+					"item": [
+						{
+							"name": "Create Host",
+							"item": [
+								{
+									"name": "Add Host - Next Available IP4 + IPv6",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host4.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"10.0.0.0/24\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t},\n            \"mac\": \"aabbccddeeff\"\n\t\t}\n\t],\n\t\"ipv6addrs\": [\n\t\t{\n\t\t\t\"ipv6addr\": \"func:nextavailableip:2001:db8::/64\"\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host?_return_fields=ipv4addrs,name",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "ipv4addrs,name"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next Available IP4 -extattr",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host5.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"*Building\": \"Lab\",\n                    \"*Country\": \"UK\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t},\n            \"mac\": \"aabbccddee00\"\n\t\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host?_return_fields=ipv4addrs,name",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "ipv4addrs,name"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next Available IP4 -extattrs",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host6.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"*Building\": \"Lab\",\n                    \"*Country\": \"France\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t},\n            \"mac\": \"0000ccddee00\"\n\t\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host?_return_fields=ipv4addrs,name",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "ipv4addrs,name"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Modify Host",
+							"item": [
+								{
+									"name": "Find specific host",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/record:host?name=host1.infoblox.poc&_max_results=1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "host1.infoblox.poc"
+												},
+												{
+													"key": "_max_results",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Retrieve Host Obj by Ref",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/record:host/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Modify IPv4 Address",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"ipv4addrs\": [ { \"ipv4addr\": \"2.2.2.2\" } ]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmNvbS5tYWtvdXNreS4:makousky.com/default",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host",
+												"ZG5zLmhvc3QkLl9kZWZhdWx0LmNvbS5tYWtvdXNreS4:makousky.com",
+												"default"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add MAC to Host IP4 address",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"mac\": \"cadedeadbeed\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host_ipv4addr/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host_ipv4addr",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add DUID to Host IP6 address",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"duid\": \"000100011e59b279a45e60bcd531\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host_ipv6addr/<ref>",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host_ipv6addr",
+												"<ref>"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete Host",
+							"item": [
+								{
+									"name": "Find specific host - get ref",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/record:host?name=host1.infoblox.poc&_max_results=1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "host1.infoblox.poc"
+												},
+												{
+													"key": "_max_results",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Host Obj by Ref",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LnRlc3QucG9jLnRlc3Qx:test1.poc.test",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host",
+												"ZG5zLmhvc3QkLl9kZWZhdWx0LnRlc3QucG9jLnRlc3Qx:test1.poc.test"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Host by name (request)",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"host_name\": \"host1.infoblox.poc\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"record:host\",\n    \"data\": {\n            \"name\": \"##STATE:host_name:##\"\n    },\n    \"assign_state\": {\n                    \"host_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:host_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]"
+										},
+										"url": {
+											"raw": "{{base_url}}/request",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"request"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Extras",
+							"item": [
+								{
+									"name": "Add Host - Next Available IP",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host2.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"10.0.0.0/24\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP4+IP6 Extattr Search",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host3.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n                    \t\"*VLAN\": \"501\"\n                },\n                \"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t],\n\t\"ipv6addrs\": [\n\t\t{\n\t\t\t\"ipv6addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"ipv6network\",\n\t\t\t\t\"_object_parameters\": {\n                    \t\"*VLAN\": \"501\"\n                },\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP Extattr Search",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host4.infoblox.poc\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"10.0.1.0/24\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t]\n\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next Available IP (short)",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"host5.infoblox.poc\",\n\t\"view\": \"default\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\":\"func:nextavailableip:10.0.1.0/24\",\n\t\t\t\"mac\":\"dafedeadbeef\"\n\t\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP+inherit",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"test1.poc.test\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"192.168.0.0/23\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t],\n\t\"extattrs\": {\n\t\t\"Site\": {\n\t\t\t\"inheritance_operation\": \"INHERIT\"\n\t\t}\n\t}\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Host - Next IP+inherit+Cloud",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"test10.poc.test\",\n\t\"ipv4addrs\": [\n\t\t{\n\t\t\t\"ipv4addr\": {\n\t\t\t\t\"_object_function\": \"next_available_ip\",\n\t\t\t\t\"_object\": \"network\",\n\t\t\t\t\"_object_parameters\": {\n\t\t\t\t\t\"network\": \"192.168.0.0/23\"\n\t\t\t\t},\n\t\t\t\t\"_result_field\": \"ips\",\n\t\t\t\t\"_parameters\": {\n\t\t\t\t\t\"num\": 1\n\t\t\t\t}\n\t\t \t}\n\t\t}\n\t],\n\t\"extattrs\": {\n\t\t\t\t\"Tenant ID\":{\"value\":\"Tenant1\"},\n\t\t\t\t\"Cloud API Owned\": {\"value\":\"True\"},\n\t\t\t\t\"CMP Type\": {\"value\":\"Postman\"}\n\t\t\t\t\"Site\": {\"inheritance_operation\": \"INHERIT\"}\n\t}\n}\t\t"
+										},
+										"url": {
+											"raw": "{{base_url}}/record:host",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"record:host"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get All Hosts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/record:host?_return_fields=name,ipv4addrs,mac",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:host"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "name,ipv4addrs,mac"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specific Host",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{auth_user}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{auth_pw}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic YWRtaW46aW5mb2Jsb3g="
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/record:host?name=host1.infoblox.poc",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:host"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "host1.infoblox.poc"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{auth_pw}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{auth_user}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://<GM>/wapi/v2.11",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "auth_user",
+			"value": "admin",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "auth_pw",
+			"value": "infoblox",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
