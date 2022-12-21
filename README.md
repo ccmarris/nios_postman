@@ -7,13 +7,14 @@
 
 This collection provides examples of working with the NIOS APIs.
 
-The collections require the two environment variables to be configured::
+The collections require several environment variables to be configured::
 
-  - base_url: https://\<gm\>/wapi/\<version\>
+  - version: <version_string> 
+  - base_url: https://\<gm\>/wapi/\{{version}}
   - auth_user:  username
   - auth_pw: password
 
-Where <gm> is the name/ip of the Grid Master and <version> is the wapi version (v2.12 NIOS 8.6.x)
+Where <gm> is the name/ip of the Grid Master and <version_string> is the wapi version (v2.12.0 NIOS 8.6.x)
 
 ## License
 
