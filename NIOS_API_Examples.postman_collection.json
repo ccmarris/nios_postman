@@ -4661,6 +4661,41 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get all NS records (paging)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/record:ns?_max_results=100&_paging=1&_return_as_object=1&_return_fields=creator,dns_name,name,nameserver,view,zone",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:ns"
+									],
+									"query": [
+										{
+											"key": "_max_results",
+											"value": "100"
+										},
+										{
+											"key": "_paging",
+											"value": "1"
+										},
+										{
+											"key": "_return_as_object",
+											"value": "1"
+										},
+										{
+											"key": "_return_fields",
+											"value": "creator,dns_name,name,nameserver,view,zone"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
@@ -4670,56 +4705,185 @@
 			"name": "RPZ",
 			"item": [
 				{
-					"name": "Get RPZ records for zone",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/allrpzrecords?zone=test&_return_fields=zone,comment,view,name,type,record",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"allrpzrecords"
-							],
-							"query": [
-								{
-									"key": "zone",
-									"value": "test"
+					"name": "Reputational Zones",
+					"item": [
+						{
+							"name": "Create RP Zone",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fqdn\": \"iocs.rpz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "_return_fields",
-									"value": "zone,comment,view,name,type,record"
+								"url": {
+									"raw": "{{base_url}}/zone_rp",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"zone_rp"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Get Reputational Zones",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/zone_rp",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"zone_rp"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Get Reputational Zones",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/zone_rp",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"zone_rp"
-							]
+					"name": "RPZ Records",
+					"item": [
+						{
+							"name": "Get RPZ records for zone",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/allrpzrecords?zone=iocs.rpz&_return_fields=zone,comment,view,name,type,record",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"allrpzrecords"
+									],
+									"query": [
+										{
+											"key": "zone",
+											"value": "iocs.rpz"
+										},
+										{
+											"key": "_return_fields",
+											"value": "zone,comment,view,name,type,record"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get RPZ CNAME records",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/record:rpz:cname?_return_fields=rp_zone,canonical,comment,name,zone,view",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:rpz:cname"
+									],
+									"query": [
+										{
+											"key": "_return_fields",
+											"value": "rp_zone,canonical,comment,name,zone,view"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add IOC to RPZ (CNAME Block)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"*.facebook.com.iocs.rpz\",\n    \"canonical\": \"\",\n    \"rp_zone\": \"iocs.rpz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/record:rpz:cname",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"record:rpz:cname"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete RPZ record by name",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"host_name\": \"*.facebook.com.iocs.rpz\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"record:rpz:cname\",\n    \"data\": {\n            \"name\": \"##STATE:host_name:##\"\n    },\n    \"assign_state\": {\n                    \"host_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:host_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clear Member Cache by name",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"mem_name\": \"ns0.infoblox.test\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"member:dns\",\n    \"data\": {\n            \"host_name\": \"##STATE:mem_name:##\"\n    },\n    \"assign_state\": {\n                    \"mem_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"POST\",\n    \"object\": \"##STATE:mem_ref:##\",\n    \"args\": { \"_function\": \"clear_dns_cache\" },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -4758,7 +4922,7 @@
 					"response": []
 				},
 				{
-					"name": "Add an",
+					"name": "Add element to ACL",
 					"request": {
 						"method": "PUT",
 						"header": [],
