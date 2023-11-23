@@ -4698,6 +4698,904 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "DTC",
+					"item": [
+						{
+							"name": "Create DTC Elements",
+							"item": [
+								{
+									"name": "Create DTC Server",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"dtc-test-server\",\n\t\"host\": \"10.10.10.10\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:server",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								},
+								{
+									"name": "Create DTC Pool",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"test-pool\",\n\t\"availability\": \"ALL\",\t\n\t\"lb_preferred_method\" :\"GLOBAL_AVAILABILITY\",\n\t\"monitors\": [\"dtc:monitor:icmp/ZG5zLmlkbnNfbW9uaXRvcl9pY21wJGljbXA:icmp\"],\n\t\"servers\": [{\n\t\t\"ratio\": 4,\n\t\t\"server\": \"dtc:server/ZG5zLmlkbnNfc2VydmVyJHRlc3Qtc2VydmVy:test-server\n\t}]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:pool",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:pool"
+											]
+										},
+										"description": "DTC pool creation\n\nThis requires the _refs of any associated monitors and servers. The example body shows examples values for these. Use the appropriate GET method to retrieve the actual values required."
+									},
+									"response": []
+								},
+								{
+									"name": "Create DTC LBDN",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"auth_zones\": [\"zone_auth/ZG5zLnpvbmUkLl9kZWZhdWx0LmNvbS5kdGM:dtc.com/default\"],\n\t\"lb_method\": \"ROUND_ROBIN\",\n\t\"name\": \"test-lbdn\",\n\t\"patterns\": [\"server.dtc.com\"],\n\t\"pools\": [{\n\t\t\"ratio\": 4,\n\t\t\"pool\": \"dtc:pool/ZG5zLmlkbnNfcG9vbCR0ZXN0LXBvb2w:test-pool\"\n\t}\n\t]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:lbdn",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:lbdn"
+											]
+										},
+										"description": "DTC LBDN creation\n\nThis requires the _refs of any associated zones and pools. The example body shows examples values for these. Use the appropriate GET method to retrieve the actual values required."
+									},
+									"response": []
+								},
+								{
+									"name": "Create second DTC server",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{auth_user}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{auth_pw}}",
+													"type": "string"
+												},
+												{
+													"key": "saveHelperData",
+													"value": true,
+													"type": "boolean"
+												},
+												{
+													"key": "showPassword",
+													"value": false,
+													"type": "boolean"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"dtc-test-server2\",\n\t\"host\": \"10.20.20.20\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:server",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get DTC Elements",
+							"item": [
+								{
+									"name": "Get DTC Monitors",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/dtc:monitor",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:monitor"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get DTC Servers",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/dtc:server?_return_fields=comment,host,name,health,monitors,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "comment,host,name,health,monitors,extattrs"
+												}
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								},
+								{
+									"name": "Get DTC Server by name",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/dtc:server?name=u14web1ny&_return_fields=comment,host,name,health,monitors,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "u14web1ny"
+												},
+												{
+													"key": "_return_fields",
+													"value": "comment,host,name,health,monitors,extattrs"
+												}
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								},
+								{
+									"name": "Get DTC Server by IP",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/dtc:server?name=u14web1ny&_return_fields=comment,host,name,health,monitors,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "u14web1ny"
+												},
+												{
+													"key": "_return_fields",
+													"value": "comment,host,name,health,monitors,extattrs"
+												}
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								},
+								{
+									"name": "Get DTC Pools",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/dtc:pool?_return_fields=servers,monitors,health,availability,name,lb_preferred_method,quorum,lb_preferred_topology,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:pool"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "servers,monitors,health,availability,name,lb_preferred_method,quorum,lb_preferred_topology,extattrs"
+												}
+											]
+										},
+										"description": "DTC pool creation"
+									},
+									"response": []
+								},
+								{
+									"name": "Get DTC LBDNs",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/dtc:lbdn?_return_fields=auth_zones,lb_method,name,patterns,pools,health",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:lbdn"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "auth_zones,lb_method,name,patterns,pools,health"
+												}
+											]
+										},
+										"description": "DTC pool creation"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Topology Object",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/dtc:topology?_return_fields=name,comment,rules,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:topology"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "name,comment,rules,extattrs"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Topology Rules",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/dtc:topology:rule?_return_fields=dest_type,destination_link,return_type,sources,topology,valid",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:topology:rule"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "dest_type,destination_link,return_type,sources,topology,valid"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get DTC Objects",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/dtc:object?_return_fields%2B=ipv4_address_list,ipv6_address_list,status_time,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:object"
+											],
+											"query": [
+												{
+													"key": "_return_fields%2B",
+													"value": "ipv4_address_list,ipv6_address_list,status_time,extattrs"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Modify",
+							"item": [
+								{
+									"name": "Add additional server to Pool",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"servers\": [{\n            \"ratio\": 4,\n            \"server\": \"dtc:server/ZG5zLmlkbnNfc2VydmVyJHRlc3Qtc2VydmVy:test-server\"\n        },\n        {\n\t\t\"ratio\": 4,\n\t\t\"server\": \"dtc:server/ZG5zLmlkbnNfc2VydmVyJHRlc3Qtc2VydmVyMg:test-server2\"\n\t}]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:pool/ZG5zLmlkbnNfcG9vbCR0ZXN0LXBvb2w:test-pool",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:pool",
+												"ZG5zLmlkbnNfcG9vbCR0ZXN0LXBvb2w:test-pool"
+											]
+										},
+										"description": "DTC pool creation"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Extras",
+							"item": [
+								{
+									"name": "Rebuild EA Topology db Copy",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/dtc?_function=generate_ea_topology_db",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc"
+											],
+											"query": [
+												{
+													"key": "_function",
+													"value": "generate_ea_topology_db"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DTC Creation: Full example",
+							"item": [
+								{
+									"name": "1 - dtc:server creation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody)",
+													"pm.collectionVariables.set(\"server1_ref\", jsonData);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"dtc-api-test-server\",\n\t\"host\": \"10.128.33.81\",\n    \"extattrs\": {\n      \"DTC-Tag\": { \"value\": \"API-Test\" }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:server",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								},
+								{
+									"name": "2 - Get Health Monitor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Stores the _ref value in a collection variable",
+													"var jsonData = pm.response.json();",
+													"var monitorRef = jsonData[0]._ref;",
+													"pm.collectionVariables.set(\"monitor_ref\", monitorRef);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/dtc:monitor:icmp?name=icmp",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:monitor:icmp"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "icmp"
+												}
+											]
+										},
+										"description": "DTC LBDN creation"
+									},
+									"response": []
+								},
+								{
+									"name": "3 - dtc:pool creation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody)",
+													"pm.collectionVariables.set(\"pool1_ref\", jsonData);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"dtc-api-test-pool1\",\n\t\"availability\": \"ALL\",\t\n\t\"lb_preferred_method\" :\"GLOBAL_AVAILABILITY\",\n\t\"monitors\": [\"{{monitor_ref}}\"],\n\t\"servers\": [{\n\t\t\"ratio\": 4,\n\t\t\"server\": \"{{server1_ref}}\"\n\t}],\n    \"extattrs\": {\n      \"DTC-Tag\": { \"value\": \"API-Test\" }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:pool",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:pool"
+											]
+										},
+										"description": "DTC pool creation"
+									},
+									"response": []
+								},
+								{
+									"name": "4 - Get auth_zone",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Stores the _ref value in a collection variable",
+													"var jsonData = pm.response.json();",
+													"var zoneRef = jsonData[0]._ref;",
+													"pm.collectionVariables.set(\"zone_ref\", zoneRef);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/zone_auth?fqdn=example.org",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"zone_auth"
+											],
+											"query": [
+												{
+													"key": "fqdn",
+													"value": "example.org"
+												}
+											]
+										},
+										"description": "DTC LBDN creation"
+									},
+									"response": []
+								},
+								{
+									"name": "5 - dtc:lbdn creation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody)",
+													"pm.collectionVariables.set(\"lbdn_ref\", jsonData);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"auth_zones\": [\"{{zone_ref}}\"],\n\t\"lb_method\": \"ROUND_ROBIN\",\n\t\"name\": \"dtc-api-test-lbdn\",\n\t\"patterns\": [\"dtc-api-test.example.org\"],\n    \"ttl\": 30,\n\t\"pools\": [{\n\t\t\"ratio\": 4,\n\t\t\"pool\": \"{{pool1_ref}}\"\n\t}\n\t],\n    \"extattrs\": {\n      \"DTC-Tag\": { \"value\": \"API-Test\" }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:lbdn",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:lbdn"
+											]
+										},
+										"description": "DTC LBDN creation"
+									},
+									"response": []
+								},
+								{
+									"name": "6 - additional dtc:server creation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody)",
+													"pm.collectionVariables.set(\"server2_ref\", jsonData);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"dtc-api-test-server2\",\n\t\"host\": \"10.128.33.82\",\n    \"extattrs\": {\n      \"DTC-Tag\": { \"value\": \"API-Test\" }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:server",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:server"
+											]
+										},
+										"description": "DTC Server creation"
+									},
+									"response": []
+								},
+								{
+									"name": "7 - Get pool configuration",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/{{pool1_ref}}?_return_fields=servers",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"{{pool1_ref}}"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "servers"
+												}
+											]
+										},
+										"description": "DTC LBDN creation"
+									},
+									"response": []
+								},
+								{
+									"name": "8 - dtc:pool modification to add another dtc:server",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"servers\": [{\n            \"ratio\": 4,\n            \"server\": \"{{server1_ref}}\"\n        },\n        {\n\t\t\"ratio\": 4,\n\t\t\"server\": \"{{server2_ref}}\"\n\t}]\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/{{pool1_ref}}?_return_fields=servers",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"{{pool1_ref}}"
+											],
+											"query": [
+												{
+													"key": "_return_fields",
+													"value": "servers"
+												}
+											]
+										},
+										"description": "DTC pool creation"
+									},
+									"response": []
+								},
+								{
+									"name": "9 - Get LBDN Details",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Basic YWRtaW46aW5mb2Jsb3g="
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/dtc:lbdn?name=dtc-api-test-lbdn&_return_fields=name,patterns,auth_zones,ttl,types,lb_method,pools,extattrs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"dtc:lbdn"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "dtc-api-test-lbdn"
+												},
+												{
+													"key": "_return_fields",
+													"value": "name,patterns,auth_zones,ttl,types,lb_method,pools,extattrs"
+												}
+											]
+										},
+										"description": "DTC LBDN creation"
+									},
+									"response": []
+								}
+							],
+							"description": "Based on a Collection Originally Created by: SBaksh\n\nModified and Updated By: RGibson\n\nCreates the basic framework for a LBDN (server, pool, LBDN) in the zone example.org, then adds an additonal server to the pool"
+						}
+					]
 				}
 			]
 		},
@@ -4745,6 +5643,32 @@
 									],
 									"path": [
 										"zone_rp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Reputational Zones",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\n    \"method\": \"STATE:ASSIGN\",\n    \"data\": {\n            \"rp_zone_name\": \"iocs.rpz\",\n            \"view_name\": \"default\"\n    }\n},\n{\n    \"method\": \"GET\",\n    \"object\": \"zone_rp\",\n    \"data\": {\n            \"fqdn\": \"##STATE:rp_zone_name:##\",\n            \"view\": \"##STATE:view_name:##\"\n    },\n    \"assign_state\": {\n                    \"rp_ref\": \"_ref\"\n    },\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"DELETE\",\n    \"object\": \"##STATE:rp_ref:##\",\n    \"enable_substitution\": true,\n    \"discard\": true\n },\n {\n    \"method\": \"STATE:DISPLAY\"\n }\n]\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/request",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"request"
 									]
 								}
 							},
